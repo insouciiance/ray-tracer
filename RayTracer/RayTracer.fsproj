@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<Compile Include="Math.fs" />
+	<Compile Include="Vector.fs" />
+	<Compile Include="Ray.fs" />
+	<Compile Include="IntersectionResult.fs" />
+	<Compile Include="Shape.fs" />
+	<Compile Include="Color.fs" />
+	<Compile Include="Colors.fs" />
+	<Compile Include="Image.fs" />
+	<Compile Include="Scene.fs" />
+	<Compile Include="Camera.fs" />
+	<Compile Include="Renderer.fs" />
+  </ItemGroup>
+
+</Project>
