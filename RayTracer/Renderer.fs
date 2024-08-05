@@ -7,6 +7,8 @@ open Vector
 open Shape
 open Color
 open Ray
+open IntersectionResult
+open Light
 
 type RenderOptions = {
     Dimensions: Vector2I
@@ -37,11 +39,17 @@ let render (camera: Camera) (scene: Scene) (options: RenderOptions) : Image =
             |> List.map (intersect ray)
             |> List.filter Option.isSome
             |> List.sortBy _.Value.Time
+
+        let colorPoint (intersection: IntersectionResult) : Color =
+            match scene.Light with
+            | Point (origin, color) -> 
+                let lightDir = intersection.Point |-| origin
+                let intensity = dot intersection.Normal (lightDir |*| -1)
+                { R = intensity; G = intensity; B = intensity } |> clamp
+
         let color =
             match intersections with
-            | Some x :: _ ->
-                let intensity = dot x.Normal (ray.Direction |*| -1)
-                { R = intensity; G = intensity; B = intensity }
+            | Some x :: _ -> colorPoint x
             | _ -> Colors.black
         color
 

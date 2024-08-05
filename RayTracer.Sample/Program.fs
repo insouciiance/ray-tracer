@@ -5,6 +5,7 @@ open Shape
 open Scene
 open Camera
 open Image
+open Light
 
 [<EntryPoint>]
 let main args =
@@ -22,14 +23,15 @@ let main args =
             Sphere({ X = -0.5; Y = -0.5; Z = -1.5 }, 0.5)
             Sphere({ X = 0.5; Y = -0.5; Z = -1.5 }, 0.5)
         ]
+        Light = Point ({ X = 0; Y = 1.5; Z = -1. }, Colors.white)
     }
 
     let renderOptions = {
-        Dimensions = { X = 80; Y = 45 }
+        Dimensions = { X = 1600; Y = 900 }
     }
 
     let image = render camera scene renderOptions
 
-    dump Console image
+    dump image (File "result.png")
 
     0
