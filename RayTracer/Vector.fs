@@ -45,5 +45,9 @@ let (|/|) (v: Vector3<'T>) (x: 'T) : Vector3<'T> = {
         Z = v.Z / x
     }
 
-let dot (v1: Vector3<'T>) (v2: Vector3<'T>) =
+let dot (v1: Vector3) (v2: Vector3) : float =
     v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z
+
+let normalize (v: Vector3) : Vector3 = 
+    let denominator = sqrt (v.X * v.X + v.Y * v.Y + v.Z * v.Z)
+    { X = v.X / denominator; Y = v.Y / denominator; Z = v.Z / denominator }
