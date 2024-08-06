@@ -1,6 +1,7 @@
 ﻿module Vector
 
 open System.Numerics
+open Math
 
 type Vector2<'T> when 'T :> INumber<'T> = {
     X: 'T
@@ -51,3 +52,9 @@ let dot (v1: Vector3) (v2: Vector3) : float =
 let normalize (v: Vector3) : Vector3 = 
     let denominator = sqrt (v.X * v.X + v.Y * v.Y + v.Z * v.Z)
     { X = v.X / denominator; Y = v.Y / denominator; Z = v.Z / denominator }
+
+let isZero (v: Vector3) : bool =
+    isZero v.X && isZero v.Y && isZero v.Z
+
+let equals (v1: Vector3) (v2: Vector3) : bool =
+    isZero (v1 |-| v2)

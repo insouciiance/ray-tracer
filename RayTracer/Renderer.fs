@@ -43,9 +43,21 @@ let render (camera: Camera) (scene: Scene) (options: RenderOptions) : Image =
         let colorPoint (intersection: IntersectionResult) : Color =
             match scene.Light with
             | Point (origin, color) -> 
-                let lightDir = intersection.Point |-| origin
-                let intensity = dot intersection.Normal (lightDir |*| -1)
-                { R = intensity; G = intensity; B = intensity } |> clamp
+                let lightDir = (intersection.Point |-| origin) |> normalize
+                let lightRay = { Origin = origin; Direction = lightDir }
+
+                let intersections =
+                    scene.Shapes
+                    |> List.map (intersect lightRay)
+                    |> List.filter Option.isSome
+                    |> List.sortBy _.Value.Time
+
+                let intensity =
+                    match intersections with
+                    | x :: _ when equals x.Value.Point intersection.Point -> dot intersection.Normal (lightDir |*| -1)
+                    | _ -> 0
+                
+                { R = color.R * intensity; G = color.G * intensity; B = color.B * intensity } |> clamp
 
         let color =
             match intersections with

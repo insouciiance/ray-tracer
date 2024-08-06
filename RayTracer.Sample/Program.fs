@@ -18,12 +18,12 @@ let main args =
 
     let scene = {
         Shapes = [
-            //Plane({ X = 0; Y = -0.2; Z = 0 }, { X = 0; Y = 1; Z = 0 });
+            Plane({ X = 0; Y = -0.2; Z = 0 }, { X = 0; Y = 1; Z = 0 });
             Sphere({ X = 0; Y = 0.5; Z = -1.5 }, 0.5)
-            Sphere({ X = -0.5; Y = -0.5; Z = -1.5 }, 0.5)
-            Sphere({ X = 0.5; Y = -0.5; Z = -1.5 }, 0.5)
+            //Sphere({ X = -0.5; Y = -0.5; Z = -1.5 }, 0.5)
+            //Sphere({ X = 0.5; Y = -0.5; Z = -1.5 }, 0.5)
         ]
-        Light = Point ({ X = 0; Y = 1.5; Z = -1. }, Colors.white)
+        Light = Point ({ X = 0; Y = 1.5; Z = -0.55 }, { R = 1; G = 0.25; B = 0 })
     }
 
     let renderOptions = {
@@ -33,5 +33,6 @@ let main args =
     let image = render camera scene renderOptions
 
     dump image (File "result.png")
+    System.Diagnostics.Process.Start("explorer.exe", "result.png") |> ignore
 
     0
